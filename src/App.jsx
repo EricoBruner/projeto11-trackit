@@ -1,8 +1,9 @@
+import Login from "./pages/Login";
+
 function App() {
   return (
     <>
-      Hello World!
-      <p>Aqui é o trakit</p>
+      <Login />
     </>
   );
 }
