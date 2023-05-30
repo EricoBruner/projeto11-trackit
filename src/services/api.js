@@ -1,0 +1,22 @@
+import axios from "axios";
+
+axios.defaults.baseURL =
+  "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit";
+axios.defaults.headers.common = { Authorization: "Zp9gx0BvQZB7ADLIO1OpsDnm" };
+
+export const apiSignUp = (userData) => {
+  return axios
+    .post("/auth/sign-up", {
+      email: userData.email,
+      name: userData.name,
+      image: userData.image,
+      password: userData.password,
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log("Error when registering:", err.response.data);
+      throw err.response.data;
+    });
+};

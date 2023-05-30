@@ -1,22 +1,83 @@
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../assets/logo.svg";
 
+import { apiSignUp } from "../services/api";
+import { useState } from "react";
+
 export default function Register() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signUp = (e) => {
+    e.preventDefault();
+
+    const userData = {
+      email,
+      name,
+      image,
+      password,
+    };
+
+    apiSignUp(userData)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => {
+        alert(`
+          Erro: ${err.message} 
+          Detalhes: ${err.details}
+        `);
+      });
+  };
+
   return (
     <LoginContainer>
       <img src={logo} alt="logo" />
       <SCTitle>TrackIt</SCTitle>
 
-      <SCForm>
-        <input type="email" placeholder="email" required />
-        <input type="password" placeholder="senha" required />
-        <input type="text" placeholder="nome" required />
-        <input type="text" placeholder="foto" required />
+      <SCForm onSubmit={signUp}>
+        <input
+          type="email"
+          placeholder="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          required
+        />
+        <input
+          type="password"
+          placeholder="senha"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          required
+        />
+        <input
+          type="text"
+          placeholder="nome"
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          required
+        />
+        <input
+          type="text"
+          placeholder="foto"
+          onChange={(e) => {
+            setImage(e.target.value);
+          }}
+          required
+        />
         <button type="submit">Cadastrar</button>
       </SCForm>
 
-      <strong>Já tem uma conta? Faça login!</strong>
+      <Link to="/">Já tem uma conta? Faça login!</Link>
     </LoginContainer>
   );
 }
@@ -34,7 +95,7 @@ const LoginContainer = styled.div`
     width: 156px;
   }
 
-  strong {
+  a {
     margin-top: 25px;
     font-weight: 400;
     font-size: 14px;

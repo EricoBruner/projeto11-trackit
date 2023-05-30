@@ -15,9 +15,7 @@ export default function Login() {
         <button type="submit">Entrar</button>
       </SCForm>
 
-      <Link to="/cadastro">
-        <strong>Não tem uma conta? Cadastre-se!</strong>
-      </Link>
+      <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
     </LoginContainer>
   );
 }
@@ -35,7 +33,7 @@ const LoginContainer = styled.div`
     width: 156px;
   }
 
-  strong {
+  a {
     margin-top: 25px;
     font-weight: 400;
     font-size: 14px;
