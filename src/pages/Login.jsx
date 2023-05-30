@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import logo from "../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -14,7 +15,9 @@ export default function Login() {
         <button type="submit">Entrar</button>
       </SCForm>
 
-      <strong>Não tem uma conta? Cadastre-se!</strong>
+      <Link to="/cadastro">
+        <strong>Não tem uma conta? Cadastre-se!</strong>
+      </Link>
     </LoginContainer>
   );
 }
