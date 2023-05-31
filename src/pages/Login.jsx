@@ -1,17 +1,62 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+
+import { apiSignIn } from "../services/api";
 
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const user = useContext(UserContext);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signIn = (e) => {
+    e.preventDefault();
+
+    const userData = {
+      email,
+      password,
+    };
+
+    apiSignIn(userData)
+      .then((res) => {
+        user.setUser(res.data);
+        navigate("/teste");
+      })
+      .catch((err) => {
+        alert(`
+          Erro: ${err.message} 
+          Detalhes: ${err.details}
+        `);
+      });
+  };
+
   return (
     <LoginContainer>
       <img src={logo} alt="logo" />
       <SCTitle>TrackIt</SCTitle>
 
-      <SCForm>
-        <input type="email" placeholder="email" required />
-        <input type="password" placeholder="senha" required />
+      <SCForm onSubmit={signIn}>
+        <input
+          type="email"
+          placeholder="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          required
+        />
+        <input
+          type="password"
+          placeholder="senha"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          required
+        />
         <button type="submit">Entrar</button>
       </SCForm>
 

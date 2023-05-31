@@ -20,3 +20,18 @@ export const apiSignUp = (userData) => {
       throw err.response.data;
     });
 };
+
+export const apiSignIn = (userData) => {
+  return axios
+    .post("/auth/login", {
+      email: userData.email,
+      password: userData.password,
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log("Error when logging in:", err.response.data);
+      throw err.response.data;
+    });
+};
