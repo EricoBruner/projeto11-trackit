@@ -47,6 +47,9 @@ const ResetStyle = createGlobalStyle`
 	input {
 		box-sizing: border-box;
 	}
+	a {
+		text-decoration: none;
+	}
 `;
 
 export default ResetStyle;
