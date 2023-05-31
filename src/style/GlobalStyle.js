@@ -4,7 +4,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Lexend Deca";
     font-weight: 400;
-    background: #E5E5E5;
+    background: #F2F2F2;
   }
 `;
 
