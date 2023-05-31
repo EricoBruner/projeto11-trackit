@@ -24,8 +24,9 @@ export default function Login() {
 
     apiSignIn(userData)
       .then((res) => {
-        user.setUser(res.data);
-        navigate("/teste");
+        const { password, ...userData } = res.data;
+        user.setUser(userData);
+        navigate("/hoje");
       })
       .catch((err) => {
         alert(`
