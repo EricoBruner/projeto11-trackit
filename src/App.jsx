@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Today from "./pages/Today";
 
 import { UserProvider } from "./contexts/UserContext";
+import Habits from "./pages/Habits";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<Register />} />
           <Route path="/hoje" element={<Today />} />
+          <Route path="/habitos" element={<Habits />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

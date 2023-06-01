@@ -35,3 +35,18 @@ export const apiSignIn = (userData) => {
       throw err.response.data;
     });
 };
+
+export const apiCreateHabit = (habitData) => {
+  return axios
+    .post("/habits", {
+      name: habitData.name,
+      days: habitData.days,
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log("Error creating habit:", err.response.data);
+      throw err.response.data;
+    });
+};
