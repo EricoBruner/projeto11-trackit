@@ -21,7 +21,7 @@ export const apiSignUp = (userData) => {
     });
 };
 
-export const apiSignIn = (userData) => {
+export const apiSignIn = (userData, token) => {
   return axios
     .post("/auth/login", {
       email: userData.email,
@@ -36,12 +36,18 @@ export const apiSignIn = (userData) => {
     });
 };
 
-export const apiCreateHabit = (habitData) => {
+export const apiCreateHabit = (habitData, token) => {
   return axios
-    .post("/habits", {
-      name: habitData.name,
-      days: habitData.days,
-    })
+    .post(
+      "/habits",
+      {
+        name: habitData.name,
+        days: habitData.days,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
     .then((res) => {
       return res;
     })

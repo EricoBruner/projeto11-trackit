@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import CheckBox from "./CheckBox";
 
 import { apiCreateHabit } from "../services/api";
 import DAYS from "../utils/days";
 
+import { UserContext } from "../contexts/UserContext";
+
 export default function CreateHabit({ setShowCreateHabit }) {
+  const { user } = useContext(UserContext);
+
   const [habitName, setHabitName] = useState("");
   const [selectedDays, setSelectedDays] = useState([]);
 
@@ -18,18 +22,17 @@ export default function CreateHabit({ setShowCreateHabit }) {
       days: selectedDays,
     };
 
-    apiCreateHabit(habitData)
-      .then((res) => {})
+    apiCreateHabit(habitData, user.token)
+      .then((res) => {
+        setShowCreateHabit(false);
+        console.log(res);
+      })
       .catch((err) => {
         alert(`
           Erro: ${err.message} 
           Detalhes: ${err.details}
         `);
       });
-  };
-
-  const teste = () => {
-    console.log(selectedDays);
   };
 
   return (
@@ -63,13 +66,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
         >
           Cancelar
         </SCCancelButton>
-        <SCSaveButton
-          onClick={() => {
-            teste();
-          }}
-        >
-          Salvar
-        </SCSaveButton>
+        <SCSaveButton type="submit">Salvar</SCSaveButton>
       </SCButtons>
     </SCForm>
   );
