@@ -5,11 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiSignIn } from "../services/api";
 
 import logo from "../assets/logo.svg";
+
 import { UserContext } from "../contexts/UserContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,10 +26,11 @@ export default function Login() {
     apiSignIn(userData)
       .then((res) => {
         const { password, ...userData } = res.data;
-        user.setUser(userData);
+        dispatch({ type: "saveUserData", data: userData });
         navigate("/hoje");
       })
       .catch((err) => {
+        console.log(err);
         alert(`
           Erro: ${err.message} 
           Detalhes: ${err.details}

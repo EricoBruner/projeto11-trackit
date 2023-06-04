@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { UserContext } from "../contexts/UserContext";
 
 export default function Header() {
-  const { user } = useContext(UserContext);
+  const { state } = useContext(UserContext);
 
   return (
     <SCHeader>
       <SCTitle>TrackIt</SCTitle>
-      {user.image ? (
-        <img src={user.image} alt="imagem do usuário" />
+      {state.image ? (
+        <img src={state.image} alt="imagem do usuário" />
       ) : (
         <img
           src="https://www.promoview.com.br/uploads/images/unnamed%2819%29.png"

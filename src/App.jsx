@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Today from "./pages/Today";
+import Habits from "./pages/Habits";
 
 import { UserProvider } from "./contexts/UserContext";
-import Habits from "./pages/Habits";
 
 function App() {
   return (

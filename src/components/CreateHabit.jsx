@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import CheckBox from "./CheckBox";
 
@@ -9,23 +9,24 @@ import DAYS from "../utils/days";
 import { UserContext } from "../contexts/UserContext";
 
 export default function CreateHabit({ setShowCreateHabit }) {
-  const { user } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
 
   const [habitName, setHabitName] = useState("");
   const [selectedDays, setSelectedDays] = useState([]);
 
+  useEffect(() => {}, []);
+
   const CreateHabit = (e) => {
     e.preventDefault();
-
     const habitData = {
       name: habitName,
       days: selectedDays,
     };
 
-    apiCreateHabit(habitData, user.token)
+    apiCreateHabit(habitData, state.token)
       .then((res) => {
         setShowCreateHabit(false);
-        console.log(res);
+        dispatch({ type: "saveOneHabit", data: res.data });
       })
       .catch((err) => {
         alert(`

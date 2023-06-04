@@ -56,3 +56,17 @@ export const apiCreateHabit = (habitData, token) => {
       throw err.response.data;
     });
 };
+
+export const apiGetHabitsList = (token) => {
+  return axios
+    .get("/habits", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error fetching habits:", err.response.data);
+      throw err.response.data;
+    });
+};
