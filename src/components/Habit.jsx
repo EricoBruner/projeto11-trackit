@@ -1,8 +1,27 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import DAYS from "../utils/days";
 import BoxWeekday from "./BoxWeekday";
+import { apiDeleteHabit } from "../services/api";
+import { UserContext } from "../contexts/UserContext";
+import updateHabitsList from "../utils/updateHabitsList";
 
 export default function Habit({ habit }) {
+  const { state, dispatch } = useContext(UserContext);
+
+  const deleteHabit = () => {
+    apiDeleteHabit(habit.id, state.token)
+      .then((res) => {
+        updateHabitsList(state.token, dispatch);
+      })
+      .catch((err) => {
+        alert(`
+          Erro: ${err.message} 
+          Detalhes: ${err.details}
+        `);
+      });
+  };
+
   return (
     <SCContainer>
       <h1>{habit.name}</h1>
@@ -16,7 +35,7 @@ export default function Habit({ habit }) {
           />
         ))}
       </SCBoxList>
-      <ion-icon name="trash-outline"></ion-icon>
+      <ion-icon onClick={() => deleteHabit()} name="trash-outline"></ion-icon>
     </SCContainer>
   );
 }

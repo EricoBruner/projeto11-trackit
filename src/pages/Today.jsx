@@ -2,28 +2,16 @@ import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
-
 import Header from "../components/Header";
 import FooterMenu from "../components/FooterMenu";
-
+import updateHabitsList from "../utils/updateHabitsList";
 import { UserContext } from "../contexts/UserContext";
-import { apiGetHabitsList } from "../services/api";
 
 export default function Today() {
   const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
-    apiGetHabitsList(state.token)
-      .then((habitsList) => {
-        dispatch({ type: "saveAllHabits", data: habitsList });
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(`
-          Erro: ${err.message} 
-          Detalhes: ${err.details}
-        `);
-      });
+    updateHabitsList(state.token, dispatch);
   }, []);
 
   const dayMonth = dayjs().locale("pt-br").format("DD/MM");

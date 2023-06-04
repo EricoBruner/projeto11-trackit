@@ -70,3 +70,17 @@ export const apiGetHabitsList = (token) => {
       throw err.response.data;
     });
 };
+
+export const apiDeleteHabit = (id, token) => {
+  return axios
+    .delete(`/habits/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error deleting habit:", err.response.data);
+      throw err.response.data;
+    });
+};
