@@ -21,6 +21,7 @@ const SCContainer = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
+  z-index: 9;
   height: 70px;
   width: 100%;
   background: #ffffff;

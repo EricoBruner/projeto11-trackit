@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 
 import FooterMenu from "../components/FooterMenu";
 import Header from "../components/Header";
 import CreateHabit from "../components/CreateHabit";
 
+import { UserContext } from "../contexts/UserContext";
+import Habit from "../components/Habit";
+
 export default function Habits() {
+  const { state } = useContext(UserContext);
   const [showCreateHabit, setShowCreateHabit] = useState(false);
+
+  console.log(state.habits);
 
   return (
     <>
@@ -19,10 +25,19 @@ export default function Habits() {
         {showCreateHabit && (
           <CreateHabit setShowCreateHabit={setShowCreateHabit} />
         )}
-        <p>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-          começar a trackear!
-        </p>
+
+        {state.habits.length === 0 ? (
+          <p>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+            começar a trackear!
+          </p>
+        ) : (
+          <SCHabitList>
+            {state.habits.map((habit) => (
+              <Habit key={habit.id} habit={habit} />
+            ))}
+          </SCHabitList>
+        )}
       </SCContainer>
       <FooterMenu />
     </>
@@ -33,6 +48,7 @@ const SCContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 70px;
+  margin-bottom: 140px;
   width: 100%;
   align-items: center;
   padding-left: 18px;
@@ -79,4 +95,10 @@ const SCTitle = styled.h1`
   font-weight: 400;
   font-size: 23px;
   color: #126ba5;
+`;
+
+const SCHabitList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;

@@ -27,6 +27,12 @@ function reducer(state, action) {
         ],
       };
 
+    case "saveAllHabits":
+      return {
+        ...state,
+        habits: action.data,
+      };
+
     default:
       throw new Error();
   }

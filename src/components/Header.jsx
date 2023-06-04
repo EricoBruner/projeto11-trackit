@@ -25,6 +25,7 @@ const SCHeader = styled.header`
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 10;
   height: 70px;
   width: 100%;
   background: #126ba5;

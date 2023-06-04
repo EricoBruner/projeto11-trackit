@@ -7,12 +7,23 @@ import Header from "../components/Header";
 import FooterMenu from "../components/FooterMenu";
 
 import { UserContext } from "../contexts/UserContext";
+import { apiGetHabitsList } from "../services/api";
 
 export default function Today() {
-  const { state } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(state);
+    apiGetHabitsList(state.token)
+      .then((habitsList) => {
+        dispatch({ type: "saveAllHabits", data: habitsList });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(`
+          Erro: ${err.message} 
+          Detalhes: ${err.details}
+        `);
+      });
   }, []);
 
   const dayMonth = dayjs().locale("pt-br").format("DD/MM");
