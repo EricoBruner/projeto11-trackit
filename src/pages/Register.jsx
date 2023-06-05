@@ -48,6 +48,7 @@ export default function Register() {
 
       <SCForm onSubmit={signUp}>
         <input
+          data-test="email-input"
           type="email"
           placeholder="email"
           onChange={(e) => {
@@ -57,6 +58,7 @@ export default function Register() {
           disabled={loading}
         />
         <input
+          data-test="password-input"
           type="password"
           placeholder="senha"
           onChange={(e) => {
@@ -66,6 +68,7 @@ export default function Register() {
           disabled={loading}
         />
         <input
+          data-test="user-name-input"
           type="text"
           placeholder="nome"
           onChange={(e) => {
@@ -75,6 +78,7 @@ export default function Register() {
           disabled={loading}
         />
         <input
+          data-test="user-image-input"
           type="text"
           placeholder="foto"
           onChange={(e) => {
@@ -83,10 +87,14 @@ export default function Register() {
           required
           disabled={loading}
         />
-        <button type="submit">{loading ? <LoadingDots /> : "Cadastrar"}</button>
+        <button data-test="signup-btn" type="submit">
+          {loading ? <LoadingDots /> : "Cadastrar"}
+        </button>
       </SCForm>
 
-      <Link to="/">Já tem uma conta? Faça login!</Link>
+      <Link data-test="login-link" to="/">
+        Já tem uma conta? Faça login!
+      </Link>
     </LoginContainer>
   );
 }
