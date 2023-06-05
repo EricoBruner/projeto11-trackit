@@ -5,6 +5,7 @@ import logo from "../assets/logo.svg";
 
 import { apiSignUp } from "../services/api";
 import { useState } from "react";
+import LoadingDots from "../components/LoadingDots";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -13,9 +14,11 @@ export default function Register() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const signUp = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const userData = {
       email,
@@ -27,12 +30,14 @@ export default function Register() {
     apiSignUp(userData)
       .then(() => {
         navigate("/");
+        setLoading(false);
       })
       .catch((err) => {
         alert(`
           Erro: ${err.message} 
           Detalhes: ${err.details}
         `);
+        setLoading(false);
       });
   };
 
@@ -49,6 +54,7 @@ export default function Register() {
             setEmail(e.target.value);
           }}
           required
+          disabled={loading}
         />
         <input
           type="password"
@@ -57,6 +63,7 @@ export default function Register() {
             setPassword(e.target.value);
           }}
           required
+          disabled={loading}
         />
         <input
           type="text"
@@ -65,6 +72,7 @@ export default function Register() {
             setName(e.target.value);
           }}
           required
+          disabled={loading}
         />
         <input
           type="text"
@@ -73,8 +81,9 @@ export default function Register() {
             setImage(e.target.value);
           }}
           required
+          disabled={loading}
         />
-        <button type="submit">Cadastrar</button>
+        <button type="submit">{loading ? <LoadingDots /> : "Cadastrar"}</button>
       </SCForm>
 
       <Link to="/">Já tem uma conta? Faça login!</Link>
@@ -153,10 +162,8 @@ const SCForm = styled.form`
     color: #ffffff;
     cursor: pointer;
     transition: 300ms;
-
-    &:hover {
-      background: #126ba5;
-      transition: 300ms;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
