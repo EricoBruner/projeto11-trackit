@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Today from "./pages/Today";
 import Habits from "./pages/Habits";
+import Historic from "./pages/Historic";
 
 import { UserProvider } from "./contexts/UserContext";
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/cadastro" element={<Register />} />
           <Route path="/hoje" element={<Today />} />
           <Route path="/habitos" element={<Habits />} />
+          <Route path="/historico" element={<Historic />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>
