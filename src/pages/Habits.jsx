@@ -63,7 +63,7 @@ const SCContainer = styled.div`
     justify-content: space-between;
     width: 100%;
 
-    button {
+    > button {
       width: 40px;
       height: 35px;
       background: #52b6ff;

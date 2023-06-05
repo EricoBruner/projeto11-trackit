@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import DAYS from "../utils/days";
 import BoxWeekday from "./BoxWeekday";
@@ -7,6 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 import updateHabitsList from "../utils/updateHabitsList";
 
 export default function Habit({ habit }) {
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
   const { state, dispatch } = useContext(UserContext);
 
   const deleteHabit = () => {
@@ -35,7 +36,20 @@ export default function Habit({ habit }) {
           />
         ))}
       </SCBoxList>
-      <ion-icon onClick={() => deleteHabit()} name="trash-outline"></ion-icon>
+
+      {showDeleteButton ? (
+        <SCBoxButtons>
+          <SCDeleteButton onClick={() => deleteHabit()}>Deletar</SCDeleteButton>
+          <SCCancelButton onClick={() => setShowDeleteButton(false)}>
+            Cancelar
+          </SCCancelButton>
+        </SCBoxButtons>
+      ) : (
+        <ion-icon
+          onClick={() => setShowDeleteButton(true)}
+          name="trash-outline"
+        ></ion-icon>
+      )}
     </SCContainer>
   );
 }
@@ -74,4 +88,43 @@ const SCBoxList = styled.div`
   display: flex;
   width: 100%;
   gap: 4px;
+`;
+
+const SCBoxButtons = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 5px;
+  background: rgb(0, 0, 0, 0.7);
+`;
+
+const SCCancelButton = styled.button`
+  width: 84px;
+  height: 35px;
+  font-weight: 400;
+  font-size: 16px;
+  background: #ffffff;
+  border: none;
+  color: #000000;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const SCDeleteButton = styled.button`
+  width: 84px;
+  height: 35px;
+  font-weight: 400;
+  font-size: 16px;
+  background: #ff5252;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
 `;
