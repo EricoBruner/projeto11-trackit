@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 
 import CheckBox from "./CheckBox";
 
@@ -7,17 +7,18 @@ import { apiCreateHabit } from "../services/api";
 import DAYS from "../utils/days";
 
 import { UserContext } from "../contexts/UserContext";
+import LoadingDots from "./LoadingDots";
 
 export default function CreateHabit({ setShowCreateHabit }) {
   const { state, dispatch } = useContext(UserContext);
-
   const [habitName, setHabitName] = useState("");
   const [selectedDays, setSelectedDays] = useState([]);
-
-  useEffect(() => {}, []);
+  const [loading, setLoading] = useState(false);
 
   const CreateHabit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const habitData = {
       name: habitName,
       days: selectedDays,
@@ -27,6 +28,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
       .then((res) => {
         setShowCreateHabit(false);
         dispatch({ type: "saveOneHabit", data: res.data });
+        setLoading(false);
       })
       .catch((err) => {
         alert(`
@@ -39,6 +41,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
   return (
     <SCForm onSubmit={CreateHabit}>
       <SCInput
+        disabled={loading}
         type="text"
         placeholder="nome do hábito"
         onChange={(e) => {
@@ -55,19 +58,23 @@ export default function CreateHabit({ setShowCreateHabit }) {
             value={number}
             setSelectedDays={setSelectedDays}
             selectedDays={selectedDays}
+            disabled={loading}
           />
         ))}
       </SCChecks>
 
       <SCButtons>
         <SCCancelButton
+          disabled={loading}
           onClick={() => {
             setShowCreateHabit(false);
           }}
         >
           Cancelar
         </SCCancelButton>
-        <SCSaveButton type="submit">Salvar</SCSaveButton>
+        <SCSaveButton type="submit" disabled={loading}>
+          {loading ? <LoadingDots /> : "Salvar"}
+        </SCSaveButton>
       </SCButtons>
     </SCForm>
   );

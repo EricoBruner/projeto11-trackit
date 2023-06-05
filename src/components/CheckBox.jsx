@@ -5,6 +5,7 @@ export default function CheckBox({
   value,
   setSelectedDays,
   selectedDays,
+  disabled,
 }) {
   const handleCheckboxChange = (e) => {
     const checked = e.target.checked;
@@ -25,6 +26,7 @@ export default function CheckBox({
         value={value}
         checked={selectedDays.includes(value)}
         onChange={handleCheckboxChange}
+        disabled={disabled}
       />
       <span>{day}</span>
     </SCLabel>
