@@ -40,8 +40,9 @@ export default function CreateHabit({ setShowCreateHabit }) {
   };
 
   return (
-    <SCForm onSubmit={CreateHabit}>
+    <SCForm data-test="habit-create-container" onSubmit={CreateHabit}>
       <SCInput
+        data-test="habit-name-input"
         disabled={loading}
         type="text"
         placeholder="nome do hábito"
@@ -66,6 +67,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
 
       <SCButtons>
         <SCCancelButton
+          data-test="habit-create-cancel-btn"
           disabled={loading}
           onClick={() => {
             setShowCreateHabit(false);
@@ -73,7 +75,11 @@ export default function CreateHabit({ setShowCreateHabit }) {
         >
           Cancelar
         </SCCancelButton>
-        <SCSaveButton type="submit" disabled={loading}>
+        <SCSaveButton
+          data-test="habit-create-save-btn"
+          type="submit"
+          disabled={loading}
+        >
           {loading ? <LoadingDots /> : "Salvar"}
         </SCSaveButton>
       </SCButtons>

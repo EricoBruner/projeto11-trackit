@@ -4,7 +4,7 @@ export default function BoxWeekday({ day, number, habitDays }) {
   const selectedDay = habitDays.includes(number);
 
   return (
-    <SCBox checked={selectedDay}>
+    <SCBox data-test="habit-day" checked={selectedDay}>
       <span>{day}</span>
     </SCBox>
   );

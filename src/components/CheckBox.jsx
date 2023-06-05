@@ -22,6 +22,7 @@ export default function CheckBox({
   return (
     <SCLabel>
       <input
+        data-test="habit-day"
         type="checkbox"
         value={value}
         checked={selectedDays.includes(value)}

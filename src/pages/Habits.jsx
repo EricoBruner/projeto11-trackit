@@ -23,7 +23,12 @@ export default function Habits() {
       <SCContainer>
         <div>
           <SCTitle>Meus hábitos</SCTitle>
-          <button onClick={() => setShowCreateHabit(true)}>+</button>
+          <button
+            data-test="habit-create-btn"
+            onClick={() => setShowCreateHabit(true)}
+          >
+            +
+          </button>
         </div>
         {showCreateHabit && (
           <CreateHabit setShowCreateHabit={setShowCreateHabit} />

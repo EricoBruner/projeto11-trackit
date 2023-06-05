@@ -24,8 +24,8 @@ export default function Habit({ habit }) {
   };
 
   return (
-    <SCContainer>
-      <h1>{habit.name}</h1>
+    <SCContainer data-test="habit-container">
+      <h1 data-test="habit-name">{habit.name}</h1>
       <SCBoxList>
         {DAYS.map(({ day, number }) => (
           <BoxWeekday
@@ -46,6 +46,7 @@ export default function Habit({ habit }) {
         </SCBoxButtons>
       ) : (
         <ion-icon
+          data-test="habit-delete-btn"
           onClick={() => setShowDeleteButton(true)}
           name="trash-outline"
         ></ion-icon>
