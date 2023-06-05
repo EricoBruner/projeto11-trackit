@@ -49,6 +49,7 @@ export default function Login() {
 
       <SCForm onSubmit={signIn}>
         <input
+          data-test="email-input"
           type="email"
           placeholder="email"
           onChange={(e) => {
@@ -58,6 +59,7 @@ export default function Login() {
           disabled={loading}
         />
         <input
+          data-test="password-input"
           type="password"
           placeholder="senha"
           onChange={(e) => {
@@ -66,10 +68,14 @@ export default function Login() {
           required
           disabled={loading}
         />
-        <button type="submit">{loading ? <LoadingDots /> : "Entrar"}</button>
+        <button data-test="login-btn" type="submit">
+          {loading ? <LoadingDots /> : "Entrar"}
+        </button>
       </SCForm>
 
-      <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
+      <Link data-test="signup-link" to="/cadastro">
+        Não tem uma conta? Cadastre-se!
+      </Link>
     </LoginContainer>
   );
 }
