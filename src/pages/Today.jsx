@@ -27,11 +27,13 @@ export default function Today() {
     <>
       <Header />
       <SCContainer>
-        <SCCurrentDay>{currentDate}</SCCurrentDay>
+        <SCCurrentDay data-test="today">{currentDate}</SCCurrentDay>
         {state.percentageHabitsCompleted == 0 ? (
-          <SCSubtitle>Nenhum hábito concluído ainda</SCSubtitle>
+          <SCSubtitle data-test="today-counter">
+            Nenhum hábito concluído ainda
+          </SCSubtitle>
         ) : (
-          <SCSubtitleGreen>
+          <SCSubtitleGreen data-test="today-counter">
             {state.percentageHabitsCompleted}% dos hábitos concluídos
           </SCSubtitleGreen>
         )}

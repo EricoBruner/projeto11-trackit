@@ -40,17 +40,22 @@ export default function HabitToday({ habit }) {
   };
 
   return (
-    <SCContainer done={habit.done} recordCurrent={recordCurrent}>
+    <SCContainer
+      data-test="today-habit-container"
+      done={habit.done}
+      recordCurrent={recordCurrent}
+    >
       <div>
-        <h1>{habit.name}</h1>
-        <h2>
+        <h1 data-test="today-habit-name">{habit.name}</h1>
+        <h2 data-test="today-habit-sequence">
           Sequência atual: <strong>{habit.currentSequence} dias</strong>
         </h2>
-        <h2>
+        <h2 data-test="today-habit-record">
           Seu recorde: <strong>{habit.highestSequence} dias</strong>
         </h2>
       </div>
       <ion-icon
+        data-test="today-habit-check-btn"
         onClick={() => {
           habit.done ? uncheckDone() : checkDone();
         }}
