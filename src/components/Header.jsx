@@ -7,12 +7,13 @@ export default function Header() {
   const { state } = useContext(UserContext);
 
   return (
-    <SCHeader>
+    <SCHeader data-test="header">
       <SCTitle>TrackIt</SCTitle>
       {state.image ? (
-        <img src={state.image} alt="imagem do usuário" />
+        <img data-test="avatar" src={state.image} alt="imagem do usuário" />
       ) : (
         <img
+          data-test="avatar"
           src="https://www.promoview.com.br/uploads/images/unnamed%2819%29.png"
           alt="imagem do usuário"
         />

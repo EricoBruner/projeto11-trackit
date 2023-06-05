@@ -29,17 +29,17 @@ export default function FooterMenu() {
   }, [state.habitsToday]);
 
   return (
-    <SCContainer>
-      <Link to={"/habitos"}>
+    <SCContainer data-test="menu">
+      <Link to={"/habitos"} data-test="habit-link">
         <strong>Hábitos</strong>
       </Link>
-      <Link to={"/hoje"}>
+      <Link to={"/hoje"} data-test="today-link">
         <SCCircleToday>
           <ProgressBar percentage={state.percentageHabitsCompleted} />
           <strong>Hoje</strong>
         </SCCircleToday>
       </Link>
-      <Link to={"/historico"}>
+      <Link to={"/historico"} data-test="history-link">
         <strong>Histórico</strong>
       </Link>
     </SCContainer>
