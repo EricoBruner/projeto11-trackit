@@ -13,7 +13,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
   const { state, dispatch } = useContext(UserContext);
   const [habitName, setHabitName] = useState("");
   const [selectedDays, setSelectedDays] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const CreateHabit = (e) => {
     e.preventDefault();
@@ -35,6 +35,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
           Erro: ${err.message} 
           Detalhes: ${err.details}
         `);
+        setLoading(false);
       });
   };
 

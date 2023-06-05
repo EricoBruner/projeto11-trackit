@@ -140,10 +140,8 @@ const SCForm = styled.form`
     color: #ffffff;
     cursor: pointer;
     transition: 300ms;
-
-    &:hover {
-      background: #126ba5;
-      transition: 300ms;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
