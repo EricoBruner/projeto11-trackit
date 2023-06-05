@@ -13,7 +13,7 @@ export default function CreateHabit({ setShowCreateHabit }) {
   const { state, dispatch } = useContext(UserContext);
   const [habitName, setHabitName] = useState("");
   const [selectedDays, setSelectedDays] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const CreateHabit = (e) => {
     e.preventDefault();
@@ -134,6 +134,9 @@ const SCSaveButton = styled.button`
   border-radius: 5px;
   border: none;
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SCChecks = styled.div`

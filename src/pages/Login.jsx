@@ -7,16 +7,18 @@ import { apiSignIn } from "../services/api";
 import logo from "../assets/logo.svg";
 
 import { UserContext } from "../contexts/UserContext";
+import LoadingDots from "../components/LoadingDots";
 
 export default function Login() {
   const navigate = useNavigate();
   const { dispatch } = useContext(UserContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const signIn = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const userData = {
       email,
@@ -28,6 +30,7 @@ export default function Login() {
         const { password, ...userData } = res.data;
         dispatch({ type: "saveUserData", data: userData });
         navigate("/hoje");
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -35,6 +38,7 @@ export default function Login() {
           Erro: ${err.message} 
           Detalhes: ${err.details}
         `);
+        setLoading(false);
       });
   };
 
@@ -51,6 +55,7 @@ export default function Login() {
             setEmail(e.target.value);
           }}
           required
+          disabled={loading}
         />
         <input
           type="password"
@@ -59,8 +64,9 @@ export default function Login() {
             setPassword(e.target.value);
           }}
           required
+          disabled={loading}
         />
-        <button type="submit">Entrar</button>
+        <button type="submit">{loading ? <LoadingDots /> : "Entrar"}</button>
       </SCForm>
 
       <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
@@ -89,11 +95,6 @@ const LoginContainer = styled.div`
     color: #52b6ff;
     cursor: pointer;
     transition: 300ms;
-
-    &:hover {
-      color: #126ba5;
-      transition: 300ms;
-    }
   }
 `;
 
