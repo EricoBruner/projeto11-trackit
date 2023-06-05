@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { apiDoneHabitToday } from "../services/api";
+import { apiDoneHabitToday, apiUncheckHabitToday } from "../services/api";
 import updateHabitsListToday from "../utils/updateHabitsListToday";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
@@ -25,6 +25,19 @@ export default function HabitToday({ habit }) {
       });
   };
 
+  const uncheckDone = () => {
+    apiUncheckHabitToday(habit.id, state.token)
+      .then((res) => {
+        updateHabitsListToday(state.token, dispatch);
+      })
+      .catch((err) => {
+        alert(`
+          Erro: ${err.message} 
+          Detalhes: ${err.details}
+        `);
+      });
+  };
+
   return (
     <SCContainer done={habit.done} recordCurrent={recordCurrent}>
       <div>
@@ -38,7 +51,7 @@ export default function HabitToday({ habit }) {
       </div>
       <ion-icon
         onClick={() => {
-          checkDone();
+          habit.done ? uncheckDone() : checkDone();
         }}
         name="checkbox"
       ></ion-icon>

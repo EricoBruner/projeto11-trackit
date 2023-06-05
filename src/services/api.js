@@ -100,8 +100,6 @@ export const apiGetHabitsListToday = (token) => {
 };
 
 export const apiDoneHabitToday = (id, token) => {
-  console.log("ID :", id, " TOKEN: ", token);
-
   return axios
     .post(`/habits/${id}/check`, null, {
       headers: { Authorization: `Bearer ${token}` },
@@ -111,6 +109,20 @@ export const apiDoneHabitToday = (id, token) => {
     })
     .catch((err) => {
       console.log("Error doning habit:", err.response.data);
+      throw err.response.data;
+    });
+};
+
+export const apiUncheckHabitToday = (id, token) => {
+  return axios
+    .post(`/habits/${id}/uncheck`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error unchecking habit:", err.response.data);
       throw err.response.data;
     });
 };
