@@ -28,7 +28,7 @@ export default function Today() {
       <Header />
       <SCContainer>
         <SCCurrentDay>{currentDate}</SCCurrentDay>
-        {state.percentageHabitsCompleted === 0 ? (
+        {state.percentageHabitsCompleted == 0 ? (
           <SCSubtitle>Nenhum hábito concluído ainda</SCSubtitle>
         ) : (
           <SCSubtitleGreen>
