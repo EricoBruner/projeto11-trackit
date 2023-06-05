@@ -21,7 +21,7 @@ export const apiSignUp = (userData) => {
     });
 };
 
-export const apiSignIn = (userData, token) => {
+export const apiSignIn = (userData) => {
   return axios
     .post("/auth/login", {
       email: userData.email,
@@ -81,6 +81,36 @@ export const apiDeleteHabit = (id, token) => {
     })
     .catch((err) => {
       console.log("Error deleting habit:", err.response.data);
+      throw err.response.data;
+    });
+};
+
+export const apiGetHabitsListToday = (token) => {
+  return axios
+    .get("/habits/today", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error fetching habits:", err.response.data);
+      throw err.response.data;
+    });
+};
+
+export const apiDoneHabitToday = (id, token) => {
+  console.log("ID :", id, " TOKEN: ", token);
+
+  return axios
+    .post(`/habits/${id}/check`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error doning habit:", err.response.data);
       throw err.response.data;
     });
 };

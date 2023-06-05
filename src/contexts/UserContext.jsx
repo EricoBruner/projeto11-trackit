@@ -33,6 +33,12 @@ function reducer(state, action) {
         habits: action.data,
       };
 
+    case "saveAllHabitsToday":
+      return {
+        ...state,
+        habitsToday: action.data,
+      };
+
     default:
       throw new Error();
   }
@@ -46,6 +52,7 @@ export function UserProvider({ children }) {
     name: "",
     token: "",
     habits: [],
+    habitsToday: [],
   });
 
   return (

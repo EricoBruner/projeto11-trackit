@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import FooterMenu from "../components/FooterMenu";
@@ -7,12 +7,15 @@ import CreateHabit from "../components/CreateHabit";
 
 import { UserContext } from "../contexts/UserContext";
 import Habit from "../components/Habit";
+import updateHabitsList from "../utils/updateHabitsList";
 
 export default function Habits() {
-  const { state } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
   const [showCreateHabit, setShowCreateHabit] = useState(false);
 
-  console.log(state.habits);
+  useEffect(() => {
+    updateHabitsList(state.token, dispatch);
+  }, []);
 
   return (
     <>

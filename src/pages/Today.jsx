@@ -4,14 +4,24 @@ import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
 import Header from "../components/Header";
 import FooterMenu from "../components/FooterMenu";
-import updateHabitsList from "../utils/updateHabitsList";
 import { UserContext } from "../contexts/UserContext";
+import updateHabitsListToday from "../utils/updateHabitsListToday";
+import HabitToday from "../components/HabitToday";
 
 export default function Today() {
   const { state, dispatch } = useContext(UserContext);
 
+  const completedHabits = state.habitsToday.reduce((count, habit) => {
+    return habit.done ? count + 1 : count;
+  }, 0);
+
+  const percentageCompleted = (
+    (completedHabits / state.habitsToday.length) *
+    100
+  ).toFixed();
+
   useEffect(() => {
-    updateHabitsList(state.token, dispatch);
+    updateHabitsListToday(state.token, dispatch);
   }, []);
 
   const dayMonth = dayjs().locale("pt-br").format("DD/MM");
@@ -20,17 +30,24 @@ export default function Today() {
     dayWeek[0].toUpperCase() + dayWeek.substring(1)
   }, ${dayMonth}`;
 
+  console.log(state.habitsToday);
+
   return (
     <>
       <Header />
       <SCContainer>
         <SCCurrentDay>{currentDate}</SCCurrentDay>
-        <strong>Nenhum hábito concluído ainda</strong>
+        {!completedHabits ? (
+          <SCSubtitle>Nenhum hábito concluído ainda</SCSubtitle>
+        ) : (
+          <SCSubtitleGreen>
+            {percentageCompleted}% dos hábitos concluídos
+          </SCSubtitleGreen>
+        )}
         <SCHabitList>
-          <li>Ler 1 capítulo de livro</li>
-          <li>Ler 1 capítulo de livro</li>
-          <li>Ler 1 capítulo de livro</li>
-          <li>Ler 1 capítulo de livro</li>
+          {state.habitsToday.map((habit) => (
+            <HabitToday key={habit.id} habit={habit} />
+          ))}
         </SCHabitList>
       </SCContainer>
       <FooterMenu />
@@ -47,14 +64,6 @@ const SCContainer = styled.div`
   padding-left: 18px;
   padding-right: 18px;
   box-sizing: border-box;
-
-  strong {
-    width: 100%;
-    margin-top: 5px;
-    font-weight: 400;
-    font-size: 18px;
-    color: #bababa;
-  }
 `;
 
 const SCCurrentDay = styled.h1`
@@ -72,4 +81,20 @@ const SCHabitList = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   gap: 10px;
+`;
+
+const SCSubtitle = styled.strong`
+  width: 100%;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #bababa;
+`;
+
+const SCSubtitleGreen = styled.strong`
+  width: 100%;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #8fc549;
 `;
