@@ -39,6 +39,12 @@ function reducer(state, action) {
         habitsToday: action.data,
       };
 
+    case "updatePercentageHabitsCompleted":
+      return {
+        ...state,
+        percentageHabitsCompleted: action.data,
+      };
+
     default:
       throw new Error();
   }
@@ -53,6 +59,7 @@ export function UserProvider({ children }) {
     token: "",
     habits: [],
     habitsToday: [],
+    percentageHabitsCompleted: 0,
   });
 
   return (

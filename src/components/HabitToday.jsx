@@ -7,6 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function HabitToday({ habit }) {
   const { state, dispatch } = useContext(UserContext);
+
   const recordCurrent =
     habit.highestSequence > 0 && habit.currentSequence === habit.highestSequence
       ? true

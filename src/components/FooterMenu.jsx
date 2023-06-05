@@ -1,14 +1,43 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ProgressBar from "./ProgressBar";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import { useEffect } from "react";
 
 export default function FooterMenu() {
+  const { state, dispatch } = useContext(UserContext);
+
+  useEffect(() => {
+    const completedHabits = state.habitsToday.reduce((count, habit) => {
+      return habit.done ? count + 1 : count;
+    }, 0);
+
+    let percentageCompleted = (
+      (completedHabits / state.habitsToday.length) *
+      100
+    ).toFixed();
+
+    if (state.habitsToday.length === 0) {
+      percentageCompleted = 0;
+    }
+
+    dispatch({
+      type: "updatePercentageHabitsCompleted",
+      data: percentageCompleted,
+    });
+  }, [state.habitsToday]);
+
   return (
     <SCContainer>
       <Link to={"/habitos"}>
         <strong>Hábitos</strong>
       </Link>
       <Link to={"/hoje"}>
-        <SCCircleToday>Hoje</SCCircleToday>
+        <SCCircleToday>
+          <ProgressBar percentage={state.percentageHabitsCompleted} />
+          <strong>Hoje</strong>
+        </SCCircleToday>
       </Link>
       <Link to={"/historico"}>
         <strong>Histórico</strong>
@@ -49,8 +78,14 @@ const SCCircleToday = styled.div`
   justify-content: center;
   border-radius: 91px;
   background: #52b6ff;
-  color: #ffffff;
-  font-size: 18px;
+  padding: 6px;
   margin-bottom: 45px;
   cursor: pointer;
+  position: relative;
+
+  > strong {
+    color: #ffffff;
+    font-size: 18px;
+    position: absolute;
+  }
 `;

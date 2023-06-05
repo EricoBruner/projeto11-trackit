@@ -11,15 +11,6 @@ import HabitToday from "../components/HabitToday";
 export default function Today() {
   const { state, dispatch } = useContext(UserContext);
 
-  const completedHabits = state.habitsToday.reduce((count, habit) => {
-    return habit.done ? count + 1 : count;
-  }, 0);
-
-  const percentageCompleted = (
-    (completedHabits / state.habitsToday.length) *
-    100
-  ).toFixed();
-
   useEffect(() => {
     updateHabitsListToday(state.token, dispatch);
   }, []);
@@ -37,11 +28,11 @@ export default function Today() {
       <Header />
       <SCContainer>
         <SCCurrentDay>{currentDate}</SCCurrentDay>
-        {!completedHabits ? (
+        {state.percentageHabitsCompleted === 0 ? (
           <SCSubtitle>Nenhum hábito concluído ainda</SCSubtitle>
         ) : (
           <SCSubtitleGreen>
-            {percentageCompleted}% dos hábitos concluídos
+            {state.percentageHabitsCompleted}% dos hábitos concluídos
           </SCSubtitleGreen>
         )}
         <SCHabitList>
